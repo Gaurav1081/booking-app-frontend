@@ -205,11 +205,11 @@ function AirportTransferForm({ onSubmit, initialData = null, isEditing = false, 
       // Debug log to see what we're sending
       console.log('Submitting data:', submitData);
 
-      // Make API call with JSON headers
+      // Make API call with JSON headers - FIXED URLs
       let response;
       if (isEditing && initialData?._id) {
         // Update existing booking using PUT method and ObjectId
-        response = await fetch(`${import.meta.env.VITE_API_URL}/api/airport-transfer-bookings/${initialData._id}`, {
+        response = await fetch(`${import.meta.env.VITE_API_URL}/airport-transfer-bookings/${initialData._id}`, {
           method: 'PUT',
           headers: {
             'Content-Type': 'application/json',
@@ -218,7 +218,7 @@ function AirportTransferForm({ onSubmit, initialData = null, isEditing = false, 
         });
       } else {
         // Create new booking using POST method
-        response = await fetch(`${import.meta.env.VITE_API_URL}/api/airport-transfer`, {
+        response = await fetch(`${import.meta.env.VITE_API_URL}/airport-transfer`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
