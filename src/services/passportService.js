@@ -1,9 +1,12 @@
 // services/passportService.js
-// Using Vite proxy - simpler approach
+// Using environment variable for API base URL
 import axios from 'axios';
 
+// Get the API base URL from environment variables
+const API_BASE_URL = import.meta.env.VITE_API_URL || '/api';
+
 const passportAPI = axios.create({
-  baseURL: '/api/passport', // Relative URL when using Vite proxy
+  baseURL: `${API_BASE_URL}/passport`,
   headers: {
     'Content-Type': 'application/json',
   },
