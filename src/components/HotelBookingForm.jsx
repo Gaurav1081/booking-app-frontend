@@ -160,8 +160,8 @@ function HotelBookingForm({ onSubmit, initialData = null, isEditing = false, onC
       }
 
       const url = isEditing 
-        ? `http://localhost:3000/api/hotel-bookings/${initialData._id}`
-        : 'http://localhost:3000/api/hotel-bookings';
+        ? `${import.meta.env.VITE_API_URL}/hotel-bookings/${initialData._id}`
+        : '${import.meta.env.VITE_API_URL}/hotel-bookings';
       
       const method = isEditing ? 'PUT' : 'POST';
       

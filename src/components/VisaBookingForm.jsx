@@ -151,8 +151,8 @@ function VisaBookingForm({ onSubmit, initialData = null, isEditing = false, onCa
       
       // Determine API endpoint and method
       const url = isEditing 
-        ? `http://localhost:3000/api/visa-bookings/${initialData._id}`
-        : 'http://localhost:3000/api/visa-bookings';
+        ? `${import.meta.env.VITE_API_URL}/visa-bookings/${initialData._id}`
+        : '${import.meta.env.VITE_API_URL}/visa-bookings';
       
       const method = isEditing ? 'PUT' : 'POST';
 

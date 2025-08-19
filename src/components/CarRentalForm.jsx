@@ -183,7 +183,7 @@ function CarRentalForm({
       let response;
       if (isEditing && initialData?._id) {
         // Update existing booking using PUT method and ObjectId
-        response = await fetch(`http://localhost:3000/api/car-rentals/${initialData._id}`, {
+        response = await fetch(`${import.meta.env.VITE_API_URL}/car-rentals/${initialData._id}`, {
           method: 'PUT',
           headers: {
             'Content-Type': 'application/json',
@@ -192,7 +192,7 @@ function CarRentalForm({
         });
       } else {
         // Create new booking using POST method
-        response = await fetch('http://localhost:3000/api/car-rentals', {
+        response = await fetch('${import.meta.env.VITE_API_URL}/car-rentals', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',

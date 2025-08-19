@@ -197,7 +197,7 @@ function ForexBookingForm({ onSubmit, initialData = null, isEditing = false, onC
       let response;
       if (isEditing && initialData?._id) {
         // Update existing booking using PUT method and ObjectId
-        response = await fetch(`http://localhost:3000/api/forex-bookings/${initialData._id}`, {
+        response = await fetch(`${import.meta.env.VITE_API_URL}/forex-bookings/${initialData._id}`, {
           method: 'PUT',
           headers: {
             'Content-Type': 'application/json',
@@ -206,7 +206,7 @@ function ForexBookingForm({ onSubmit, initialData = null, isEditing = false, onC
         });
       } else {
         // Create new booking using POST method
-        response = await fetch('http://localhost:3000/api/forex-bookings', {
+        response = await fetch('${import.meta.env.VITE_API_URL}/forex-bookings', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',

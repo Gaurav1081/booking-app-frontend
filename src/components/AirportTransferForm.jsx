@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+console.log("API URL:", import.meta.env.VITE_API_URL);
 
 function TabNavigation({ activeTab, setActiveTab, tabs, canProceed }) {
   return (
@@ -208,7 +209,7 @@ function AirportTransferForm({ onSubmit, initialData = null, isEditing = false, 
       let response;
       if (isEditing && initialData?._id) {
         // Update existing booking using PUT method and ObjectId
-        response = await fetch(`http://localhost:3000/api/airport-transfer-bookings/${initialData._id}`, {
+        response = await fetch(`${import.meta.env.VITE_API_URL}/airport-transfer-bookings/${initialData._id}`, {
           method: 'PUT',
           headers: {
             'Content-Type': 'application/json',
@@ -217,7 +218,7 @@ function AirportTransferForm({ onSubmit, initialData = null, isEditing = false, 
         });
       } else {
         // Create new booking using POST method
-        response = await fetch('http://localhost:3000/api/airport-transfer', {
+        response = await fetch('${import.meta.env.VITE_API_URL}', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
