@@ -218,7 +218,7 @@ function AirportTransferForm({ onSubmit, initialData = null, isEditing = false, 
         });
       } else {
         // Create new booking using POST method
-        response = await fetch('${import.meta.env.VITE_API_URL}', {
+        response = await fetch(`${import.meta.env.VITE_API_URL}`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',

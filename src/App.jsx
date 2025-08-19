@@ -42,37 +42,37 @@ const FormWithExport = ({
 
       // Fetch from backend for all forms (except passport which doesn't have export)
       if (formType === 'Flight Booking') {
-        const response = await fetch('http://localhost:3000/api/flight-bookings');
+        const response = await fetch(`${import.meta.env.VITE_API_URL}/flight-bookings`);
         const apiData = await response.json();
         data = Array.isArray(apiData) ? apiData : (apiData.data || apiData.bookings || []);
         fileName = 'Flight_Bookings.xlsx';
       } else if (formType === 'Hotel Booking') {
-        const response = await fetch('http://localhost:3000/api/hotel-bookings');
+        const response = await fetch(`${import.meta.env.VITE_API_URL}/hotel-bookings`);
         const apiData = await response.json();
         data = Array.isArray(apiData) ? apiData : (apiData.data || apiData.bookings || []);
         fileName = 'Hotel_Bookings.xlsx';
       } else if (formType === 'Airport Transfer') {
-        const response = await fetch('http://localhost:3000/api/airport-transfer-bookings');
+        const response = await fetch(`${import.meta.env.VITE_API_URL}/airport-transfer-bookings`);
         const apiData = await response.json();
         data = Array.isArray(apiData) ? apiData : (apiData.data || apiData.bookings || []);
         fileName = 'Airport_Transfers.xlsx';
       } else if (formType === 'Car Rental') {
-        const response = await fetch('http://localhost:3000/api/car-rental-bookings');
+        const response = await fetch(`${import.meta.env.VITE_API_URL}/car-rental-bookings`);
         const apiData = await response.json();
         data = Array.isArray(apiData) ? apiData : (apiData.data || apiData.bookings || []);
         fileName = 'Car_Rentals.xlsx';
       } else if (formType === 'Forex') {
-        const response = await fetch('http://localhost:3000/api/forex-bookings');
+        const response = await fetch(`${import.meta.env.VITE_API_URL}/forex-bookings`);
         const apiData = await response.json();
         data = Array.isArray(apiData) ? apiData : (apiData.data || apiData.bookings || []);
         fileName = 'Forex_Transactions.xlsx';
       } else if (formType === 'VISA') {
-        const response = await fetch('http://localhost:3000/api/visa-bookings');
+        const response = await fetch(`${import.meta.env.VITE_API_URL}/visa-bookings`);
         const apiData = await response.json();
         data = Array.isArray(apiData) ? apiData : (apiData.data || apiData.bookings || []);
         fileName = 'Visa_Applications.xlsx';
       } else if (formType === 'Miscellaneous') {
-        const response = await fetch('http://localhost:3000/api/miscellaneous-bookings');
+        const response = await fetch(`${import.meta.env.VITE_API_URL}/miscellaneous-bookings`);
         const apiData = await response.json();
         data = Array.isArray(apiData) ? apiData : (apiData.data || apiData.bookings || []);
         fileName = 'Miscellaneous_Services.xlsx';
@@ -207,49 +207,49 @@ function BookingApp() {
     try {
       switch(activeForm) {
         case 'flight':
-          const flightResponse = await fetch('http://localhost:3000/api/flight-bookings');
+          const flightResponse = await fetch(`${import.meta.env.VITE_API_URL}/flight-bookings`);
           const flightData = await flightResponse.json();
           data = Array.isArray(flightData) ? flightData : (flightData.data || flightData.bookings || []);
           fileName = 'Flight_Bookings.xlsx';
           break;
           
         case 'hotel':
-          const hotelResponse = await fetch('http://localhost:3000/api/hotel-bookings');
+          const hotelResponse = await fetch(`${import.meta.env.VITE_API_URL}/hotel-bookings`);
           const hotelData = await hotelResponse.json();
           data = Array.isArray(hotelData) ? hotelData : (hotelData.data || hotelData.bookings || []);
           fileName = 'Hotel_Bookings.xlsx';
           break;
           
         case 'airportTransfer':
-          const transferResponse = await fetch('http://localhost:3000/api/airport-transfer-bookings');
+          const transferResponse = await fetch(`${import.meta.env.VITE_API_URL}/airport-transfer-bookings`);
           const transferData = await transferResponse.json();
           data = Array.isArray(transferData) ? transferData : (transferData.data || transferData.bookings || []);
           fileName = 'Airport_Transfers.xlsx';
           break;
           
         case 'carRental':
-          const carResponse = await fetch('http://localhost:3000/api/car-rental-bookings');
+          const carResponse = await fetch(`${import.meta.env.VITE_API_URL}/car-rental-bookings`);
           const carData = await carResponse.json();
           data = Array.isArray(carData) ? carData : (carData.data || carData.bookings || []);
           fileName = 'Car_Rentals.xlsx';
           break;
           
         case 'forex':
-          const forexResponse = await fetch('http://localhost:3000/api/forex-bookings');
+          const forexResponse = await fetch(`${import.meta.env.VITE_API_URL}/forex-bookings`);
           const forexData = await forexResponse.json();
           data = Array.isArray(forexData) ? forexData : (forexData.data || forexData.bookings || []);
           fileName = 'Forex_Transactions.xlsx';
           break;
           
         case 'visa':
-          const visaResponse = await fetch('http://localhost:3000/api/visa-bookings');
+          const visaResponse = await fetch(`${import.meta.env.VITE_API_URL}/visa-bookings`);
           const visaData = await visaResponse.json();
           data = Array.isArray(visaData) ? visaData : (visaData.data || visaData.bookings || []);
           fileName = 'Visa_Applications.xlsx';
           break;
           
         case 'miscellaneous':
-          const miscResponse = await fetch('http://localhost:3000/api/miscellaneous-bookings');
+          const miscResponse = await fetch(`${import.meta.env.VITE_API_URL}/miscellaneous-bookings`);
           const miscData = await miscResponse.json();
           data = Array.isArray(miscData) ? miscData : (miscData.data || miscData.bookings || []);
           fileName = 'Miscellaneous_Services.xlsx';
@@ -258,13 +258,13 @@ function BookingApp() {
         case 'search':
           // For search, fetch all data from backend (excluding passport)
           const [flightRes, hotelRes, transferRes, carRes, forexRes, miscRes, visaRes] = await Promise.all([
-            fetch('http://localhost:3000/api/flight-bookings'),
-            fetch('http://localhost:3000/api/hotel-bookings'),
-            fetch('http://localhost:3000/api/airport-transfer-bookings'),
-            fetch('http://localhost:3000/api/car-rental-bookings'),
-            fetch('http://localhost:3000/api/forex-bookings'),
-            fetch('http://localhost:3000/api/miscellaneous-bookings'),
-            fetch('http://localhost:3000/api/visa-bookings')
+            fetch(`${import.meta.env.VITE_API_URL}/flight-bookings`),
+            fetch(`${import.meta.env.VITE_API_URL}/hotel-bookings`),
+            fetch(`${import.meta.env.VITE_API_URL}/airport-transfer-bookings`),
+            fetch(`${import.meta.env.VITE_API_URL}/car-rental-bookings`),
+            fetch(`${import.meta.env.VITE_API_URL}/forex-bookings`),
+            fetch(`${import.meta.env.VITE_API_URL}/miscellaneous-bookings`),
+            fetch(`${import.meta.env.VITE_API_URL}/visa-bookings`)
           ]);
           
           const flightBookings = await flightRes.json();

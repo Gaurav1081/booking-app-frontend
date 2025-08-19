@@ -199,7 +199,7 @@ function MiscellaneousBookingForm({ onSubmit, initialData = null, isEditing = fa
       // Make API call
       const url = isEditing && initialData?._id 
         ? `${import.meta.env.VITE_API_URL}/miscellaneous-bookings/${initialData._id}`
-        : '${import.meta.env.VITE_API_URL}/miscellaneous-bookings';
+        : `${import.meta.env.VITE_API_URL}/miscellaneous-bookings`;
       
       const method = isEditing ? 'PUT' : 'POST';
       

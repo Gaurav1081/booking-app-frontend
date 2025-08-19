@@ -192,7 +192,7 @@ function CarRentalForm({
         });
       } else {
         // Create new booking using POST method
-        response = await fetch('${import.meta.env.VITE_API_URL}/car-rentals', {
+        response = await fetch(`${import.meta.env.VITE_API_URL}/car-rentals`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',

@@ -206,7 +206,7 @@ function ForexBookingForm({ onSubmit, initialData = null, isEditing = false, onC
         });
       } else {
         // Create new booking using POST method
-        response = await fetch('${import.meta.env.VITE_API_URL}/forex-bookings', {
+        response = await fetch(`${import.meta.env.VITE_API_URL}/forex-bookings`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
