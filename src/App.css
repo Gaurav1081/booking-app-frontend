@@ -1,0 +1,82 @@
+/* App.css */
+
+.app-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+  font-family: 'Arial', sans-serif;
+}
+
+.app-header {
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.app-header h1 {
+  color: #333;
+  font-size: 28px;
+}
+
+.tabs-container {
+  display: flex;
+  flex-wrap: wrap;
+  margin-bottom: 20px;
+  gap: 5px;
+  justify-content: center;
+}
+
+.tab-button {
+  padding: 10px 15px;
+  background-color: #f1f1f1;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  font-weight: 500;
+}
+
+.tab-button.active {
+  background-color: #4a90e2;
+  color: white;
+}
+
+.tab-button:hover:not(.active) {
+  background-color: #ddd;
+}
+
+.export-container {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 20px;
+}
+
+.export-button {
+  background-color: #4caf50;
+  color: white;
+  border: none;
+  padding: 10px 15px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  font-weight: 600;
+}
+
+.export-button:hover {
+  background-color: #3e8e41;
+}
+
+.form-container {
+  margin-top: 20px;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .tabs-container {
+    flex-direction: column;
+  }
+  
+  .tab-button {
+    width: 100%;
+    margin-bottom: 5px;
+  }
+}
