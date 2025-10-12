@@ -28,7 +28,7 @@ function ForexBookingForm({ onSubmit, initialData = null, isEditing = false, onC
   const [formData, setFormData] = useState({
     dateOfBooking: '',
     agentName: '',
-    bookingAgent: '', // New field added
+    bookingAgent: '',
     bookingEntity: '',
     travelerName: '',
     contactNumber: '',
@@ -43,8 +43,45 @@ function ForexBookingForm({ onSubmit, initialData = null, isEditing = false, onC
     creditNoteNumber: '',
     amount: '',
     refundAmount: '',
-    paymentStatus: 'notReceived'
-    // Removed ticketCopy field
+    paymentStatus: 'notReceived',
+    // NEW FIELDS - CORRECTED NAMES
+    country: '',
+    nosOfDay: '',
+    departureDate: '',
+    returnDate: '',
+    exchangeDate: '',
+    totalForexPurchased: '',
+    ratePerDay: '',
+    entertainment: '',
+    debitTo: '',
+    inrAmount: '',
+    billNo: '',
+    paymentDetails: '',
+    company: '',
+    inrRefundAmount: '',
+    refundChequeNo: '',
+    dateOfCheque: '',
+    refundBankDate: '',
+    refundSendToAccount: '',
+    chequeNo: '',
+    dateOfChequeSecond: '', // CORRECTED
+    bankReport: '',
+    dateReceived: '',
+    reportDateSendToAcc: '',
+    ftmDateSend: '',
+    ftmSendTo: '',
+    billNoSecond: '', // CORRECTED
+    billAmount: '',
+    reportDue: false, // CORRECTED to boolean
+    ftmDue: false, // CORRECTED to boolean
+    recordIncomplete: false,
+    designation: '',
+    remarks: '',
+    denomination: '',
+    exchangeDone: false,
+    currencyCode: '',
+    department: '',
+    visaCost: ''
   });
 
   const tabs = ['Booking Details', 'Generate Booking ID', 'Payment Information'];
@@ -55,7 +92,7 @@ function ForexBookingForm({ onSubmit, initialData = null, isEditing = false, onC
       setFormData({
         dateOfBooking: initialData.dateOfBooking ? new Date(initialData.dateOfBooking).toISOString().split('T')[0] : '',
         agentName: initialData.agentName || '',
-        bookingAgent: initialData.bookingAgent || '', // New field initialization
+        bookingAgent: initialData.bookingAgent || '',
         bookingEntity: initialData.bookingEntity || '',
         travelerName: initialData.travelerName || '',
         contactNumber: initialData.contactNumber || '',
@@ -70,15 +107,51 @@ function ForexBookingForm({ onSubmit, initialData = null, isEditing = false, onC
         creditNoteNumber: initialData.creditNoteNumber || '',
         amount: initialData.amount || '',
         refundAmount: initialData.refundAmount || '',
-        paymentStatus: initialData.paymentStatus || 'notReceived'
-        // Removed ticketCopy initialization
+        paymentStatus: initialData.paymentStatus || 'notReceived',
+        // NEW FIELDS - CORRECTED
+        country: initialData.country || '',
+        nosOfDay: initialData.nosOfDay || '',
+        departureDate: initialData.departureDate ? new Date(initialData.departureDate).toISOString().split('T')[0] : '',
+        returnDate: initialData.returnDate ? new Date(initialData.returnDate).toISOString().split('T')[0] : '',
+        exchangeDate: initialData.exchangeDate ? new Date(initialData.exchangeDate).toISOString().split('T')[0] : '',
+        totalForexPurchased: initialData.totalForexPurchased || '',
+        ratePerDay: initialData.ratePerDay || '',
+        entertainment: initialData.entertainment || '',
+        debitTo: initialData.debitTo || '',
+        inrAmount: initialData.inrAmount || '',
+        billNo: initialData.billNo || '',
+        paymentDetails: initialData.paymentDetails || '',
+        company: initialData.company || '',
+        inrRefundAmount: initialData.inrRefundAmount || '',
+        refundChequeNo: initialData.refundChequeNo || '',
+        dateOfCheque: initialData.dateOfCheque ? new Date(initialData.dateOfCheque).toISOString().split('T')[0] : '',
+        refundBankDate: initialData.refundBankDate ? new Date(initialData.refundBankDate).toISOString().split('T')[0] : '',
+        refundSendToAccount: initialData.refundSendToAccount || '',
+        chequeNo: initialData.chequeNo || '',
+        dateOfChequeSecond: initialData.dateOfChequeSecond ? new Date(initialData.dateOfChequeSecond).toISOString().split('T')[0] : '',
+        bankReport: initialData.bankReport || '',
+        dateReceived: initialData.dateReceived ? new Date(initialData.dateReceived).toISOString().split('T')[0] : '',
+        reportDateSendToAcc: initialData.reportDateSendToAcc ? new Date(initialData.reportDateSendToAcc).toISOString().split('T')[0] : '',
+        ftmDateSend: initialData.ftmDateSend ? new Date(initialData.ftmDateSend).toISOString().split('T')[0] : '',
+        ftmSendTo: initialData.ftmSendTo || '',
+        billNoSecond: initialData.billNoSecond || '',
+        billAmount: initialData.billAmount || '',
+        reportDue: initialData.reportDue || false,
+        ftmDue: initialData.ftmDue || false,
+        recordIncomplete: initialData.recordIncomplete || false,
+        designation: initialData.designation || '',
+        remarks: initialData.remarks || '',
+        denomination: initialData.denomination || '',
+        exchangeDone: initialData.exchangeDone || false,
+        currencyCode: initialData.currencyCode || '',
+        department: initialData.department || '',
+        visaCost: initialData.visaCost || ''
       });
 
-      // Use ticketId instead of bookingId for consistency
       if (initialData.ticketId) {
         setTicketId(initialData.ticketId);
       } else if (initialData.bookingId) {
-        setTicketId(initialData.bookingId); // Fallback for old data
+        setTicketId(initialData.bookingId);
       }
     }
   }, [isEditing, initialData]);
@@ -88,7 +161,7 @@ function ForexBookingForm({ onSubmit, initialData = null, isEditing = false, onC
     return (
       formData.dateOfBooking &&
       formData.agentName &&
-      formData.bookingAgent && // Added to validation
+      formData.bookingAgent &&
       formData.bookingEntity &&
       formData.travelerName &&
       formData.contactNumber &&
@@ -98,7 +171,6 @@ function ForexBookingForm({ onSubmit, initialData = null, isEditing = false, onC
 
   // Check if document info is filled to enable tab 3
   const isDocumentInfoChecked = () => {
-    // At least one document should be checked
     return (
       formData.documents.passport ||
       formData.documents.visa ||
@@ -111,7 +183,7 @@ function ForexBookingForm({ onSubmit, initialData = null, isEditing = false, onC
   const canProceedToTab = (tabIndex) => {
     if (tabIndex === 0) return true;
     if (tabIndex === 1) return isBasicInfoFilled();
-    if (tabIndex === 2) return isBasicInfoFilled(); // Allow payment info anytime after basic info
+    if (tabIndex === 2) return isBasicInfoFilled();
     return false;
   };
 
@@ -127,11 +199,9 @@ function ForexBookingForm({ onSubmit, initialData = null, isEditing = false, onC
     const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
     let result = 'FX-';
     
-    // Ensure we have at least one letter and one number
     result += 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.charAt(Math.floor(Math.random() * 26));
     result += '0123456789'.charAt(Math.floor(Math.random() * 10));
     
-    // Add 3 more random characters
     for (let i = 0; i < 3; i++) {
       result += characters.charAt(Math.floor(Math.random() * characters.length));
     }
@@ -144,7 +214,6 @@ function ForexBookingForm({ onSubmit, initialData = null, isEditing = false, onC
     const { name, value, type, checked } = e.target;
     
     if (name.startsWith('doc_')) {
-      // Handle document checkboxes
       const documentName = name.replace('doc_', '');
       setFormData({
         ...formData,
@@ -152,6 +221,11 @@ function ForexBookingForm({ onSubmit, initialData = null, isEditing = false, onC
           ...formData.documents,
           [documentName]: checked
         }
+      });
+    } else if (type === 'checkbox') {
+      setFormData({
+        ...formData,
+        [name]: checked
       });
     } else {
       setFormData({
@@ -166,13 +240,12 @@ function ForexBookingForm({ onSubmit, initialData = null, isEditing = false, onC
     setIsSubmitting(true);
     
     try {
-      // Create regular object for JSON submission (no file upload needed)
       const submitData = {
         ticketId: ticketId,
         bookingType: 'forex',
         dateOfBooking: formData.dateOfBooking,
         agentName: formData.agentName,
-        bookingAgent: formData.bookingAgent, // New field included
+        bookingAgent: formData.bookingAgent,
         bookingEntity: formData.bookingEntity,
         travelerName: formData.travelerName,
         contactNumber: formData.contactNumber,
@@ -182,10 +255,47 @@ function ForexBookingForm({ onSubmit, initialData = null, isEditing = false, onC
         creditNoteNumber: formData.creditNoteNumber || '',
         amount: formData.amount || '0',
         refundAmount: formData.refundAmount || '0',
-        paymentStatus: formData.paymentStatus
+        paymentStatus: formData.paymentStatus,
+        // NEW FIELDS - CORRECTED NAMES
+        country: formData.country || '',
+        nosOfDay: formData.nosOfDay || '',
+        departureDate: formData.departureDate || '',
+        returnDate: formData.returnDate || '',
+        exchangeDate: formData.exchangeDate || '',
+        totalForexPurchased: formData.totalForexPurchased || '',
+        ratePerDay: formData.ratePerDay || '',
+        entertainment: formData.entertainment || '',
+        debitTo: formData.debitTo || '',
+        inrAmount: formData.inrAmount || '',
+        billNo: formData.billNo || '',
+        paymentDetails: formData.paymentDetails || '',
+        company: formData.company || '',
+        inrRefundAmount: formData.inrRefundAmount || '',
+        refundChequeNo: formData.refundChequeNo || '',
+        dateOfCheque: formData.dateOfCheque || '',
+        refundBankDate: formData.refundBankDate || '',
+        refundSendToAccount: formData.refundSendToAccount || '',
+        chequeNo: formData.chequeNo || '',
+        dateOfChequeSecond: formData.dateOfChequeSecond || '', // CORRECTED
+        bankReport: formData.bankReport || '',
+        dateReceived: formData.dateReceived || '',
+        reportDateSendToAcc: formData.reportDateSendToAcc || '',
+        ftmDateSend: formData.ftmDateSend || '',
+        ftmSendTo: formData.ftmSendTo || '',
+        billNoSecond: formData.billNoSecond || '', // CORRECTED
+        billAmount: formData.billAmount || '',
+        reportDue: formData.reportDue || false, // CORRECTED
+        ftmDue: formData.ftmDue || false, // CORRECTED
+        recordIncomplete: formData.recordIncomplete || false,
+        designation: formData.designation || '',
+        remarks: formData.remarks || '',
+        denomination: formData.denomination || '',
+        exchangeDone: formData.exchangeDone || false,
+        currencyCode: formData.currencyCode || '',
+        department: formData.department || '',
+        visaCost: formData.visaCost || ''
       };
       
-      // Add timestamps
       if (isEditing) {
         submitData.submittedAt = initialData?.submittedAt || new Date().toISOString();
         submitData.lastModified = new Date().toISOString();
@@ -193,10 +303,8 @@ function ForexBookingForm({ onSubmit, initialData = null, isEditing = false, onC
         submitData.submittedAt = new Date().toISOString();
       }
 
-      // Make API call - conditional based on editing mode
       let response;
       if (isEditing && initialData?._id) {
-        // Update existing booking using PUT method and ObjectId
         response = await fetch(`${import.meta.env.VITE_API_URL}/forex-bookings/${initialData._id}`, {
           method: 'PUT',
           headers: {
@@ -205,7 +313,6 @@ function ForexBookingForm({ onSubmit, initialData = null, isEditing = false, onC
           body: JSON.stringify(submitData),
         });
       } else {
-        // Create new booking using POST method
         response = await fetch(`${import.meta.env.VITE_API_URL}/forex-bookings`, {
           method: 'POST',
           headers: {
@@ -222,9 +329,7 @@ function ForexBookingForm({ onSubmit, initialData = null, isEditing = false, onC
       const result = await response.json();
       console.log('Forex booking submitted successfully:', result);
 
-      // Call parent onSubmit if provided with correct data format
       if (onSubmit) {
-        // Ensure we pass the complete booking data for Search.jsx to handle updates
         const bookingData = {
           ...result,
           _id: result._id || initialData?._id,
@@ -236,12 +341,11 @@ function ForexBookingForm({ onSubmit, initialData = null, isEditing = false, onC
         onSubmit(bookingData);
       }
       
-      // Reset form after successful submission (only for new bookings)
       if (!isEditing) {
         setFormData({
           dateOfBooking: '',
           agentName: '',
-          bookingAgent: '', // Reset new field
+          bookingAgent: '',
           bookingEntity: '',
           travelerName: '',
           contactNumber: '',
@@ -256,8 +360,44 @@ function ForexBookingForm({ onSubmit, initialData = null, isEditing = false, onC
           creditNoteNumber: '',
           amount: '',
           refundAmount: '',
-          paymentStatus: 'notReceived'
-          // Removed ticketCopy reset
+          paymentStatus: 'notReceived',
+          country: '',
+          nosOfDay: '',
+          departureDate: '',
+          returnDate: '',
+          exchangeDate: '',
+          totalForexPurchased: '',
+          ratePerDay: '',
+          entertainment: '',
+          debitTo: '',
+          inrAmount: '',
+          billNo: '',
+          paymentDetails: '',
+          company: '',
+          inrRefundAmount: '',
+          refundChequeNo: '',
+          dateOfCheque: '',
+          refundBankDate: '',
+          refundSendToAccount: '',
+          chequeNo: '',
+          dateOfChequeSecond: '',
+          bankReport: '',
+          dateReceived: '',
+          reportDateSendToAcc: '',
+          ftmDateSend: '',
+          ftmSendTo: '',
+          billNoSecond: '',
+          billAmount: '',
+          reportDue: false,
+          ftmDue: false,
+          recordIncomplete: false,
+          designation: '',
+          remarks: '',
+          denomination: '',
+          exchangeDone: false,
+          currencyCode: '',
+          department: '',
+          visaCost: ''
         });
         setActiveTab(0);
         setTicketId('');
@@ -356,7 +496,7 @@ function ForexBookingForm({ onSubmit, initialData = null, isEditing = false, onC
                 />
               </div>
 
-              {/* NEW: Booking Agent */}
+              {/* Booking Agent */}
               <div>
                 <label htmlFor="bookingAgent" className="block text-sm font-medium text-gray-700 mb-1">
                   Booking Agent
@@ -435,6 +575,126 @@ function ForexBookingForm({ onSubmit, initialData = null, isEditing = false, onC
                   required
                 />
               </div>
+
+              {/* NEW FIELD: Country */}
+              <div>
+                <label htmlFor="country" className="block text-sm font-medium text-gray-700 mb-1">
+                  Country
+                </label>
+                <input
+                  type="text"
+                  id="country"
+                  name="country"
+                  value={formData.country}
+                  onChange={handleChange}
+                  className="w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+                />
+              </div>
+
+              {/* NEW FIELD: Nos of Day */}
+              <div>
+                <label htmlFor="nosOfDay" className="block text-sm font-medium text-gray-700 mb-1">
+                  Nos of Day
+                </label>
+                <input
+                  type="number"
+                  id="nosOfDay"
+                  name="nosOfDay"
+                  value={formData.nosOfDay}
+                  onChange={handleChange}
+                  className="w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+                />
+              </div>
+
+              {/* NEW FIELD: Departure Date */}
+              <div>
+                <label htmlFor="departureDate" className="block text-sm font-medium text-gray-700 mb-1">
+                  Departure Date
+                </label>
+                <input
+                  type="date"
+                  id="departureDate"
+                  name="departureDate"
+                  value={formData.departureDate}
+                  onChange={handleChange}
+                  className="w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+                />
+              </div>
+
+              {/* NEW FIELD: Return Date */}
+              <div>
+                <label htmlFor="returnDate" className="block text-sm font-medium text-gray-700 mb-1">
+                  Return Date
+                </label>
+                <input
+                  type="date"
+                  id="returnDate"
+                  name="returnDate"
+                  value={formData.returnDate}
+                  onChange={handleChange}
+                  className="w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+                />
+              </div>
+
+              {/* NEW FIELD: Exchange Date */}
+              <div>
+                <label htmlFor="exchangeDate" className="block text-sm font-medium text-gray-700 mb-1">
+                  Exchange Date
+                </label>
+                <input
+                  type="date"
+                  id="exchangeDate"
+                  name="exchangeDate"
+                  value={formData.exchangeDate}
+                  onChange={handleChange}
+                  className="w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+                />
+              </div>
+
+              {/* NEW FIELD: Designation */}
+              <div>
+                <label htmlFor="designation" className="block text-sm font-medium text-gray-700 mb-1">
+                  Designation
+                </label>
+                <input
+                  type="text"
+                  id="designation"
+                  name="designation"
+                  value={formData.designation}
+                  onChange={handleChange}
+                  className="w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+                />
+              </div>
+
+              {/* NEW FIELD: Department */}
+              <div>
+                <label htmlFor="department" className="block text-sm font-medium text-gray-700 mb-1">
+                  Department
+                </label>
+                <input
+                  type="text"
+                  id="department"
+                  name="department"
+                  value={formData.department}
+                  onChange={handleChange}
+                  className="w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+                />
+              </div>
+
+              {/* NEW FIELD: Company */}
+              <div>
+                <label htmlFor="company" className="block text-sm font-medium text-gray-700 mb-1">
+                  Company
+                </label>
+                <input
+                  type="text"
+                  id="company"
+                  name="company"
+                  value={formData.company}
+                  onChange={handleChange}
+                  className="w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+                />
+              </div>
             </div>
 
             {/* Document Verification */}
@@ -509,6 +769,21 @@ function ForexBookingForm({ onSubmit, initialData = null, isEditing = false, onC
                   Note: At least one document must be verified to proceed to the next step.
                 </p>
               </div>
+            </div>
+
+            {/* NEW FIELD: Remarks */}
+            <div>
+              <label htmlFor="remarks" className="block text-sm font-medium text-gray-700 mb-1">
+                Remarks
+              </label>
+              <textarea
+                id="remarks"
+                name="remarks"
+                value={formData.remarks}
+                onChange={handleChange}
+                rows="3"
+                className="w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+              ></textarea>
             </div>
 
             {/* Navigation Buttons */}
@@ -640,6 +915,378 @@ function ForexBookingForm({ onSubmit, initialData = null, isEditing = false, onC
                 />
               </div>
 
+              {/* NEW FIELD: Total Forex Purchased */}
+              <div>
+                <label htmlFor="totalForexPurchased" className="block text-sm font-medium text-gray-700 mb-1">
+                  Total Forex Purchased
+                </label>
+                <input
+                  type="number"
+                  id="totalForexPurchased"
+                  name="totalForexPurchased"
+                  value={formData.totalForexPurchased}
+                  onChange={handleChange}
+                  min="0"
+                  step="0.01"
+                  className="w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+                />
+              </div>
+
+              {/* NEW FIELD: Rate per Day */}
+              <div>
+                <label htmlFor="ratePerDay" className="block text-sm font-medium text-gray-700 mb-1">
+                  Rate per Day
+                </label>
+                <input
+                  type="number"
+                  id="ratePerDay"
+                  name="ratePerDay"
+                  value={formData.ratePerDay}
+                  onChange={handleChange}
+                  min="0"
+                  step="0.01"
+                  className="w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+                />
+              </div>
+
+              {/* NEW FIELD: Entertainment */}
+              <div>
+                <label htmlFor="entertainment" className="block text-sm font-medium text-gray-700 mb-1">
+                  Entertainment
+                </label>
+                <input
+                  type="text"
+                  id="entertainment"
+                  name="entertainment"
+                  value={formData.entertainment}
+                  onChange={handleChange}
+                  className="w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+                />
+              </div>
+
+              {/* NEW FIELD: Debit to */}
+              <div>
+                <label htmlFor="debitTo" className="block text-sm font-medium text-gray-700 mb-1">
+                  Debit to
+                </label>
+                <input
+                  type="text"
+                  id="debitTo"
+                  name="debitTo"
+                  value={formData.debitTo}
+                  onChange={handleChange}
+                  className="w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+                />
+              </div>
+
+              {/* NEW FIELD: INR Amount */}
+              <div>
+                <label htmlFor="inrAmount" className="block text-sm font-medium text-gray-700 mb-1">
+                  INR Amount
+                </label>
+                <input
+                  type="number"
+                  id="inrAmount"
+                  name="inrAmount"
+                  value={formData.inrAmount}
+                  onChange={handleChange}
+                  min="0"
+                  step="0.01"
+                  className="w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+                />
+              </div>
+
+              {/* NEW FIELD: Bill No */}
+              <div>
+                <label htmlFor="billNo" className="block text-sm font-medium text-gray-700 mb-1">
+                  Bill No
+                </label>
+                <input
+                  type="text"
+                  id="billNo"
+                  name="billNo"
+                  value={formData.billNo}
+                  onChange={handleChange}
+                  className="w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+                />
+              </div>
+
+              {/* NEW FIELD: Payment Details */}
+              <div>
+                <label htmlFor="paymentDetails" className="block text-sm font-medium text-gray-700 mb-1">
+                  Payment Details
+                </label>
+                <input
+                  type="text"
+                  id="paymentDetails"
+                  name="paymentDetails"
+                  value={formData.paymentDetails}
+                  onChange={handleChange}
+                  className="w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+                />
+              </div>
+
+              {/* NEW FIELD: INR Refund Amount */}
+              <div>
+                <label htmlFor="inrRefundAmount" className="block text-sm font-medium text-gray-700 mb-1">
+                  INR Refund Amount
+                </label>
+                <input
+                  type="number"
+                  id="inrRefundAmount"
+                  name="inrRefundAmount"
+                  value={formData.inrRefundAmount}
+                  onChange={handleChange}
+                  min="0"
+                  step="0.01"
+                  className="w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+                />
+              </div>
+
+              {/* NEW FIELD: Refund Cheque No */}
+              <div>
+                <label htmlFor="refundChequeNo" className="block text-sm font-medium text-gray-700 mb-1">
+                  Refund Cheque No
+                </label>
+                <input
+                  type="text"
+                  id="refundChequeNo"
+                  name="refundChequeNo"
+                  value={formData.refundChequeNo}
+                  onChange={handleChange}
+                  className="w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+                />
+              </div>
+
+              {/* NEW FIELD: Date of Cheque */}
+              <div>
+                <label htmlFor="dateOfCheque" className="block text-sm font-medium text-gray-700 mb-1">
+                  Date of Cheque
+                </label>
+                <input
+                  type="date"
+                  id="dateOfCheque"
+                  name="dateOfCheque"
+                  value={formData.dateOfCheque}
+                  onChange={handleChange}
+                  className="w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+                />
+              </div>
+
+              {/* NEW FIELD: Refund Bank Date */}
+              <div>
+                <label htmlFor="refundBankDate" className="block text-sm font-medium text-gray-700 mb-1">
+                  Refund Bank Date
+                </label>
+                <input
+                  type="date"
+                  id="refundBankDate"
+                  name="refundBankDate"
+                  value={formData.refundBankDate}
+                  onChange={handleChange}
+                  className="w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+                />
+              </div>
+
+              {/* NEW FIELD: Refund Send to Account */}
+              <div>
+                <label htmlFor="refundSendToAccount" className="block text-sm font-medium text-gray-700 mb-1">
+                  Refund Send to Account
+                </label>
+                <input
+                  type="text"
+                  id="refundSendToAccount"
+                  name="refundSendToAccount"
+                  value={formData.refundSendToAccount}
+                  onChange={handleChange}
+                  className="w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+                />
+              </div>
+
+              {/* NEW FIELD: Cheque No */}
+              <div>
+                <label htmlFor="chequeNo" className="block text-sm font-medium text-gray-700 mb-1">
+                  Cheque No
+                </label>
+                <input
+                  type="text"
+                  id="chequeNo"
+                  name="chequeNo"
+                  value={formData.chequeNo}
+                  onChange={handleChange}
+                  className="w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+                />
+              </div>
+
+              {/* NEW FIELD: Date of Cheque Second - CORRECTED */}
+              <div>
+                <label htmlFor="dateOfChequeSecond" className="block text-sm font-medium text-gray-700 mb-1">
+                  Date of Cheque (Secondary)
+                </label>
+                <input
+                  type="date"
+                  id="dateOfChequeSecond"
+                  name="dateOfChequeSecond"
+                  value={formData.dateOfChequeSecond}
+                  onChange={handleChange}
+                  className="w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+                />
+              </div>
+
+              {/* NEW FIELD: Bank Report */}
+              <div>
+                <label htmlFor="bankReport" className="block text-sm font-medium text-gray-700 mb-1">
+                  Bank Report
+                </label>
+                <input
+                  type="text"
+                  id="bankReport"
+                  name="bankReport"
+                  value={formData.bankReport}
+                  onChange={handleChange}
+                  className="w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+                />
+              </div>
+
+              {/* NEW FIELD: Date Received */}
+              <div>
+                <label htmlFor="dateReceived" className="block text-sm font-medium text-gray-700 mb-1">
+                  Date Received
+                </label>
+                <input
+                  type="date"
+                  id="dateReceived"
+                  name="dateReceived"
+                  value={formData.dateReceived}
+                  onChange={handleChange}
+                  className="w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+                />
+              </div>
+
+              {/* NEW FIELD: Report Date Send to Acc */}
+              <div>
+                <label htmlFor="reportDateSendToAcc" className="block text-sm font-medium text-gray-700 mb-1">
+                  Report Date Send to Acc
+                </label>
+                <input
+                  type="date"
+                  id="reportDateSendToAcc"
+                  name="reportDateSendToAcc"
+                  value={formData.reportDateSendToAcc}
+                  onChange={handleChange}
+                  className="w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+                />
+              </div>
+
+              {/* NEW FIELD: FTM Date Send */}
+              <div>
+                <label htmlFor="ftmDateSend" className="block text-sm font-medium text-gray-700 mb-1">
+                  FTM Date Send
+                </label>
+                <input
+                  type="date"
+                  id="ftmDateSend"
+                  name="ftmDateSend"
+                  value={formData.ftmDateSend}
+                  onChange={handleChange}
+                  className="w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+                />
+              </div>
+
+              {/* NEW FIELD: FTM Send To */}
+              <div>
+                <label htmlFor="ftmSendTo" className="block text-sm font-medium text-gray-700 mb-1">
+                  FTM Send To
+                </label>
+                <input
+                  type="text"
+                  id="ftmSendTo"
+                  name="ftmSendTo"
+                  value={formData.ftmSendTo}
+                  onChange={handleChange}
+                  className="w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+                />
+              </div>
+
+              {/* NEW FIELD: Bill No Second - CORRECTED */}
+              <div>
+                <label htmlFor="billNoSecond" className="block text-sm font-medium text-gray-700 mb-1">
+                  Bill No (Secondary)
+                </label>
+                <input
+                  type="text"
+                  id="billNoSecond"
+                  name="billNoSecond"
+                  value={formData.billNoSecond}
+                  onChange={handleChange}
+                  className="w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+                />
+              </div>
+
+              {/* NEW FIELD: Bill Amount */}
+              <div>
+                <label htmlFor="billAmount" className="block text-sm font-medium text-gray-700 mb-1">
+                  Bill Amount
+                </label>
+                <input
+                  type="number"
+                  id="billAmount"
+                  name="billAmount"
+                  value={formData.billAmount}
+                  onChange={handleChange}
+                  min="0"
+                  step="0.01"
+                  className="w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+                />
+              </div>
+
+              {/* NEW FIELD: Denomination */}
+              <div>
+                <label htmlFor="denomination" className="block text-sm font-medium text-gray-700 mb-1">
+                  Denomination
+                </label>
+                <input
+                  type="text"
+                  id="denomination"
+                  name="denomination"
+                  value={formData.denomination}
+                  onChange={handleChange}
+                  className="w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+                />
+              </div>
+
+              {/* NEW FIELD: Currency Code */}
+              <div>
+                <label htmlFor="currencyCode" className="block text-sm font-medium text-gray-700 mb-1">
+                  Currency Code
+                </label>
+                <input
+                  type="text"
+                  id="currencyCode"
+                  name="currencyCode"
+                  value={formData.currencyCode}
+                  onChange={handleChange}
+                  className="w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+                />
+              </div>
+
+              {/* NEW FIELD: Visa Cost */}
+              <div>
+                <label htmlFor="visaCost" className="block text-sm font-medium text-gray-700 mb-1">
+                  Visa Cost
+                </label>
+                <input
+                  type="number"
+                  id="visaCost"
+                  name="visaCost"
+                  value={formData.visaCost}
+                  onChange={handleChange}
+                  min="0"
+                  step="0.01"
+                  className="w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+                />
+              </div>
+
               {/* Payment Status */}
               <div className="md:col-span-2">
                 <label className="block text-sm font-medium text-gray-700 mb-1">
@@ -670,8 +1317,74 @@ function ForexBookingForm({ onSubmit, initialData = null, isEditing = false, onC
                   </label>
                 </div>
               </div>
-              
-              {/* REMOVED: Attach Ticket Copy section */}
+
+              {/* NEW FIELD: Report Due - CORRECTED to checkbox */}
+              <div className="md:col-span-2">
+                <div className="flex items-center">
+                  <input
+                    type="checkbox"
+                    id="reportDue"
+                    name="reportDue"
+                    checked={formData.reportDue}
+                    onChange={handleChange}
+                    className="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded"
+                  />
+                  <label htmlFor="reportDue" className="ml-3 block text-sm font-medium text-gray-700">
+                    Report Due
+                  </label>
+                </div>
+              </div>
+
+              {/* NEW FIELD: FTM Due - CORRECTED to checkbox */}
+              <div className="md:col-span-2">
+                <div className="flex items-center">
+                  <input
+                    type="checkbox"
+                    id="ftmDue"
+                    name="ftmDue"
+                    checked={formData.ftmDue}
+                    onChange={handleChange}
+                    className="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded"
+                  />
+                  <label htmlFor="ftmDue" className="ml-3 block text-sm font-medium text-gray-700">
+                    FTM Due
+                  </label>
+                </div>
+              </div>
+
+              {/* NEW FIELD: Record Incomplete */}
+              <div className="md:col-span-2">
+                <div className="flex items-center">
+                  <input
+                    type="checkbox"
+                    id="recordIncomplete"
+                    name="recordIncomplete"
+                    checked={formData.recordIncomplete}
+                    onChange={handleChange}
+                    className="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded"
+                  />
+                  <label htmlFor="recordIncomplete" className="ml-3 block text-sm font-medium text-gray-700">
+                    Record Incomplete
+                  </label>
+                </div>
+              </div>
+
+              {/* NEW FIELD: Exchange Done */}
+              <div className="md:col-span-2">
+                <div className="flex items-center">
+                  <input
+                    type="checkbox"
+                    id="exchangeDone"
+                    name="exchangeDone"
+                    checked={formData.exchangeDone}
+                    onChange={handleChange}
+                    className="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded"
+                  />
+                  <label htmlFor="exchangeDone" className="ml-3 block text-sm font-medium text-gray-700">
+                    Exchange Done
+                  </label>
+                </div>
+              </div>
             </div>
 
             {/* Navigation and Submit Buttons */}
