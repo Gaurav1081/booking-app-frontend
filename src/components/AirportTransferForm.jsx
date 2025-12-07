@@ -42,7 +42,8 @@ function AirportTransferForm({ onSubmit, initialData = null, isEditing = false, 
       creditNoteNumber: initialData.creditNoteNumber || '',
       amount: initialData.amount || '',
       refundAmount: initialData.refundAmount || '',
-      paymentStatus: initialData.paymentStatus || 'notReceived'
+      paymentStatus: initialData.paymentStatus || 'notReceived',
+      remarks: initialData.remarks || ''
     } : {
       dateOfBooking: '',
       agentName: '',
@@ -58,7 +59,8 @@ function AirportTransferForm({ onSubmit, initialData = null, isEditing = false, 
       creditNoteNumber: '',
       amount: '',
       refundAmount: '',
-      paymentStatus: 'notReceived'
+      paymentStatus: 'notReceived',
+      remarks: ''
     }
   );
 
@@ -191,6 +193,7 @@ function AirportTransferForm({ onSubmit, initialData = null, isEditing = false, 
         amount: formData.amount || '0',
         refundAmount: formData.refundAmount || '0',
         paymentStatus: formData.paymentStatus,
+        remarks: formData.remarks || '',
         bookingType: 'airport_transfer'
       };
       
@@ -267,7 +270,8 @@ function AirportTransferForm({ onSubmit, initialData = null, isEditing = false, 
           creditNoteNumber: '',
           amount: '',
           refundAmount: '',
-          paymentStatus: 'notReceived'
+          paymentStatus: 'notReceived',
+          remarks: ''
         });
         setActiveTab(0);
         setBookingId('');
@@ -684,6 +688,18 @@ function AirportTransferForm({ onSubmit, initialData = null, isEditing = false, 
                     <span className="text-sm text-gray-700">Payment Not Received</span>
                   </label>
                 </div>
+              </div>
+
+              <div className="md:col-span-2">
+                <label className="block text-sm font-medium text-gray-700 mb-1">Remarks (Amendment / Cancellation)</label>
+                <textarea
+                  name="remarks"
+                  value={formData.remarks}
+                  onChange={handleChange}
+                  rows="3"
+                  className="w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+                  placeholder="Enter any remarks regarding amendments or cancellations..."
+                />
               </div>
             </div>
 

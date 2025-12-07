@@ -40,7 +40,8 @@ function HotelBookingForm({ onSubmit, initialData = null, isEditing = false, onC
     creditNoteNumber: '',
     amount: '',
     refundAmount: '',
-    paymentStatus: 'notReceived'
+    paymentStatus: 'notReceived',
+    remarks: ''
   });
 
   const tabs = ['Booking Details', 'Generate Ticket ID', 'Payment Information'];
@@ -63,7 +64,8 @@ function HotelBookingForm({ onSubmit, initialData = null, isEditing = false, onC
         creditNoteNumber: initialData.creditNoteNumber || '',
         amount: initialData.amount || '',
         refundAmount: initialData.refundAmount || '',
-        paymentStatus: initialData.paymentStatus || 'notReceived'
+        paymentStatus: initialData.paymentStatus || 'notReceived',
+        remarks: initialData.remarks || ''
       });
       setBookingId(initialData.ticketId || initialData.bookingId || '');
     }
@@ -152,6 +154,7 @@ function HotelBookingForm({ onSubmit, initialData = null, isEditing = false, onC
         amount: formData.amount || '',
         refundAmount: formData.refundAmount || '',
         paymentStatus: formData.paymentStatus,
+        remarks: formData.remarks || '',
         submittedAt: initialData?.submittedAt || new Date().toISOString()
       };
       
@@ -198,7 +201,8 @@ function HotelBookingForm({ onSubmit, initialData = null, isEditing = false, onC
             creditNoteNumber: '',
             amount: '',
             refundAmount: '',
-            paymentStatus: 'notReceived'
+            paymentStatus: 'notReceived',
+            remarks: ''
           });
           setActiveTab(0);
           setBookingId('');
@@ -389,6 +393,18 @@ function HotelBookingForm({ onSubmit, initialData = null, isEditing = false, onC
                   required
                 />
               </div>
+            </div>
+
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-1">Remarks (Amendment / Cancellation)</label>
+              <textarea
+                name="remarks"
+                value={formData.remarks}
+                onChange={handleChange}
+                rows="3"
+                className="w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+                placeholder="Enter any remarks about amendments or cancellations..."
+              />
             </div>
 
             {/* Navigation Buttons */}

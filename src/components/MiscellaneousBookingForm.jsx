@@ -38,7 +38,8 @@ function MiscellaneousBookingForm({ onSubmit, initialData = null, isEditing = fa
     creditNoteNumber: '',
     amount: '',
     refundAmount: '',
-    paymentStatus: 'notReceived'
+    paymentStatus: 'notReceived',
+    remarks: ''
   });
 
   const tabs = ['Booking Details', 'Generate Ticket ID', 'Payment Information'];
@@ -58,7 +59,8 @@ function MiscellaneousBookingForm({ onSubmit, initialData = null, isEditing = fa
         creditNoteNumber: initialData.creditNoteNumber || '',
         amount: initialData.amount || '',
         refundAmount: initialData.refundAmount || '',
-        paymentStatus: initialData.paymentStatus || 'notReceived'
+        paymentStatus: initialData.paymentStatus || 'notReceived',
+        remarks: initialData.remarks || ''
       });
       
       if (initialData.serviceDetails && Array.isArray(initialData.serviceDetails)) {
@@ -171,6 +173,7 @@ function MiscellaneousBookingForm({ onSubmit, initialData = null, isEditing = fa
         amount: formData.amount,
         refundAmount: formData.refundAmount,
         paymentStatus: formData.paymentStatus,
+        remarks: formData.remarks,
         ticketId: ticketId,
         bookingType: 'miscellaneous',
         serviceDetails: serviceDetails.map(detail => ({
@@ -237,7 +240,8 @@ function MiscellaneousBookingForm({ onSubmit, initialData = null, isEditing = fa
           creditNoteNumber: '',
           amount: '',
           refundAmount: '',
-          paymentStatus: 'notReceived'
+          paymentStatus: 'notReceived',
+          remarks: ''
         });
         setServiceDetails([{ description: '', notes: '' }]);
         setActiveTab(0);
@@ -675,6 +679,23 @@ function MiscellaneousBookingForm({ onSubmit, initialData = null, isEditing = fa
                 </label>
               </div>
             </div>
+            
+            {/* Remarks Field */}
+            <div>
+              <label htmlFor="remarks" className="block text-sm font-medium text-gray-700 mb-1">
+                Remarks (Amendment / Cancellation):
+              </label>
+              <textarea
+                id="remarks"
+                name="remarks"
+                value={formData.remarks}
+                onChange={handleChange}
+                rows="3"
+                placeholder="Enter any remarks regarding amendments or cancellations..."
+                className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+                disabled={isSubmitting}
+              />
+            </div>
           </div>
         )}
         
@@ -738,7 +759,7 @@ function MiscellaneousBookingForm({ onSubmit, initialData = null, isEditing = fa
             <div className="flex gap-4">
               <button
                 type="button"
-                className="flex-1 py-2 px-4 bg-gray-600 text-white rounded-md hover:bg-gray-700 disabled:bg-gray-300 disabled:cursor-not-allowed"
+               className="flex-1 py-2 px-4 bg-gray-600 text-white rounded-md hover:bg-gray-700 disabled:bg-gray-300 disabled:cursor-not-allowed"
                 onClick={handlePrevious}
                 disabled={isSubmitting}
               >

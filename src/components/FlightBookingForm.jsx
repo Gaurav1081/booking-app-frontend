@@ -121,7 +121,8 @@ function FlightBookingForm({ onSubmit, initialData = null, isEditing = false, on
     creditNoteNumber: '',
     amount: '',
     refundAmount: '',
-    paymentStatus: 'notReceived'
+    paymentStatus: 'notReceived',
+    remarks: ''
   });
 
   const tabs = ['Booking Details', 'Generate Ticket ID', 'Payment Information'];
@@ -141,7 +142,8 @@ function FlightBookingForm({ onSubmit, initialData = null, isEditing = false, on
         creditNoteNumber: initialData.creditNoteNumber || '',
         amount: initialData.amount || '',
         refundAmount: initialData.refundAmount || '',
-        paymentStatus: initialData.paymentStatus || 'notReceived'
+        paymentStatus: initialData.paymentStatus || 'notReceived',
+        remarks: initialData.remarks || ''
       });
 
       if (initialData.journeyDetails && Array.isArray(initialData.journeyDetails)) {
@@ -275,7 +277,8 @@ function FlightBookingForm({ onSubmit, initialData = null, isEditing = false, on
           creditNoteNumber: '',
           amount: '',
           refundAmount: '',
-          paymentStatus: 'notReceived'
+          paymentStatus: 'notReceived',
+          remarks: ''
         });
         setJourneyEntries([{ from: '', to: '', date: '' }]);
         setActiveTab(0);
@@ -530,6 +533,22 @@ function FlightBookingForm({ onSubmit, initialData = null, isEditing = false, on
                   disabled={isLoading}
                 />
               </div>
+            </div>
+
+            {/* Remarks Field */}
+            <div>
+              <label htmlFor="remarks" className="block text-sm font-medium text-gray-700 mb-1">
+                Remarks (Amendment / Cancellation)
+              </label>
+              <textarea
+                id="remarks"
+                name="remarks"
+                value={formData.remarks}
+                onChange={handleChange}
+                rows="3"
+                className="w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+                disabled={isLoading}
+              ></textarea>
             </div>
 
             {/* Navigation Buttons */}

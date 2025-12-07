@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import FlightBookingForm from './FlightBookingForm';
 import HotelBookingForm from './HotelBookingForm';
 import AirportTransferForm from './AirportTransferForm';
@@ -24,6 +24,7 @@ function Search({ bookingData, onUpdateBooking }) {
   const [isLoading, setIsLoading] = useState(false);
   const [isExporting, setIsExporting] = useState(false);
   const [useBackend, setUseBackend] = useState(true); // Toggle between backend and props
+  const bookingDetailsRef = useRef(null); // Ref for booking details section
 
   // API call helper function
   const apiCall = async (endpoint, options = {}) => {
@@ -266,6 +267,15 @@ function Search({ bookingData, onUpdateBooking }) {
         // If only one result, auto-select it
         if (results.length === 1) {
           setSelectedResult(results[0]);
+          // Auto-scroll for single result
+          setTimeout(() => {
+            if (bookingDetailsRef.current) {
+              bookingDetailsRef.current.scrollIntoView({ 
+                behavior: 'smooth', 
+                block: 'start' 
+              });
+            }
+          }, 100);
         }
       } else {
         setSearchError(`No bookings found for "${searchValue}" in ${getSearchTypeLabel(searchType)}`);
@@ -388,6 +398,16 @@ function Search({ bookingData, onUpdateBooking }) {
   // Handle result selection
   const handleSelectResult = (booking) => {
     setSelectedResult(booking);
+    
+    // Scroll to booking details after a short delay to ensure DOM is updated
+    setTimeout(() => {
+      if (bookingDetailsRef.current) {
+        bookingDetailsRef.current.scrollIntoView({ 
+          behavior: 'smooth', 
+          block: 'start' 
+        });
+      }
+    }, 100);
   };
 
   // Handle edit button click
@@ -678,7 +698,7 @@ Please check the console for more details and try again.`);
 
       {/* Selected Booking Details */}
       {selectedResult && (
-        <div className="bg-white border border-gray-200 rounded-lg shadow-sm">
+        <div ref={bookingDetailsRef} className="bg-white border border-gray-200 rounded-lg shadow-sm">
           {/* Header */}
           <div className="bg-green-50 border-b border-green-200 px-6 py-4 rounded-t-lg">
             <div className="flex items-center justify-between">

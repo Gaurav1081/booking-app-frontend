@@ -307,9 +307,9 @@ const Homepage = ({
               <h3 className="font-semibold mb-4">Quick Links</h3>
               <ul className="space-y-2 text-gray-300">
                 <li><button onClick={() => setCurrentView('home')} className="hover:text-white transition-colors">Home</button></li>
-                <li><a href="#" className="hover:text-white transition-colors">About Us</a></li>
                 <li><button onClick={() => setCurrentView('forms')} className="hover:text-white transition-colors">Services</button></li>
-                <li><a href="#" className="hover:text-white transition-colors">Contact</a></li>
+                <li><button onClick={() => setCurrentView('search')} className="hover:text-white transition-colors">Search</button></li>
+                
               </ul>
             </div>
             
@@ -327,14 +327,7 @@ const Homepage = ({
               </ul>
             </div>
             
-            <div>
-              <h3 className="font-semibold mb-4">Contact Info</h3>
-              <div className="space-y-2 text-gray-300">
-                <p>📧 info@bookeasy.com</p>
-                <p>📞 +1 (555) 123-4567</p>
-                <p>📍 123 Travel Street, City, Country</p>
-              </div>
-            </div>
+            
           </div>
           
           <div className="border-t border-gray-700 mt-8 pt-8 text-center text-gray-300">
